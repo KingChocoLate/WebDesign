@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Study Hub - Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-book-open text-2xl text-indigo-600"></i>
+                        <span class="text-xl font-bold text-gray-800">Study Hub</span>
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="notes.html" class="bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-medium">Notes</a>
+                        <a href="planner.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Planner</a>
+                        <a href="flashcards.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Flashcards</a>
+                        <a href="community.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                    </div>
+                </div>
+                 <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="notes.html" class="bg-indigo-600 text-white block px-3 py-2 rounded-md text-base font-medium">Notes</a>
+                <a href="planner.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Planner</a>
+                <a href="flashcards.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Flashcards</a>
+                <a href="community.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="flex justify-between items-center pb-4 border-b-2 border-gray-200 mb-6">
+                <h1 class="text-3xl font-bold text-gray-800">Your Notes</h1>
+                <button id="add-note-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                    <i class="fas fa-plus mr-2"></i>New Note
+                </button>
+            </div>
+
+            <!-- Notes Grid -->
+            <div id="notes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Example Note -->
+                <div class="bg-yellow-200 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-transform">
+                    <div>
+                        <h3 class="font-bold text-lg mb-2 text-gray-800">Project Ideas</h3>
+                        <p class="text-gray-700 text-sm break-words">Brainstorming session for the web design project. Need to focus on user experience and a clean UI...</p>
+                    </div>
+                    <div class="text-right mt-4">
+                         <button class="text-gray-500 hover:text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                 <!-- Notes will be dynamically added here -->
+            </div>
+             <!-- Modal for adding a new note -->
+            <div id="note-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                <div class="relative top-1/4 sm:top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white">
+                    <div class="mt-3 text-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">New Note</h3>
+                        <div class="mt-2 px-7 py-3">
+                            <input id="note-title" type="text" placeholder="Note Title" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none mb-4" />
+                            <textarea id="note-content" placeholder="Note Content" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"></textarea>
+                        </div>
+                        <div class="items-center px-4 py-3">
+                            <button id="save-note-btn" class="px-4 py-2 bg-indigo-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                                Save Note
+                            </button>
+                             <button id="close-modal-btn" class="mt-2 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-300 focus:outline-none">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+    <script src="notes.js"></script>
+</body>
+</html>

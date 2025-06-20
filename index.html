@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Study Hub - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-book-open text-2xl text-indigo-600"></i>
+                        <span class="text-xl font-bold text-gray-800">Study Hub</span>
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="notes.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Notes</a>
+                        <a href="planner.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Planner</a>
+                        <a href="flashcards.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Flashcards</a>
+                        <a href="community.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                    </div>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="bg-indigo-600 text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="notes.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Notes</a>
+                <a href="planner.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Planner</a>
+                <a href="flashcards.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Flashcards</a>
+                <a href="community.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Welcome to Your Study Hub</h1>
+                <p class="text-lg text-gray-600 mb-8">Your all-in-one place to study effectively and collaborate with peers.</p>
+                <div id="pomodoro-timer" class="max-w-md mx-auto bg-gray-50 p-6 rounded-2xl shadow-inner">
+                    <div id="timer-display" class="text-7xl font-bold text-indigo-600 mb-4">25:00</div>
+                    <div class="flex justify-center space-x-4">
+                        <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Start Focus</button>
+                        <button id="reset-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Reset</button>
+                    </div>
+                     <div class="mt-4 text-sm text-gray-500">
+                        <p id="timer-mode">Time to focus!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Quick Access Cards -->
+                <a href="notes.html" class="bg-white rounded-lg shadow-lg p-6 flex items-center space-x-4 hover:shadow-xl transition-shadow transform hover:-translate-y-1">
+                    <i class="fas fa-sticky-note text-3xl text-yellow-500"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Quick Notes</h3>
+                        <p class="text-gray-600">Jot down your ideas quickly.</p>
+                    </div>
+                </a>
+                <a href="planner.html" class="bg-white rounded-lg shadow-lg p-6 flex items-center space-x-4 hover:shadow-xl transition-shadow transform hover:-translate-y-1">
+                    <i class="fas fa-calendar-alt text-3xl text-red-500"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Today's Plan</h3>
+                        <p class="text-gray-600">See what's on your schedule.</p>
+                    </div>
+                </a>
+                <a href="flashcards.html" class="bg-white rounded-lg shadow-lg p-6 flex items-center space-x-4 hover:shadow-xl transition-shadow transform hover:-translate-y-1">
+                    <i class="fas fa-layer-group text-3xl text-blue-500"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Review Flashcards</h3>
+                        <p class="text-gray-600">Test your knowledge.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2024 Online Study Hub. A project by a dedicated student.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>

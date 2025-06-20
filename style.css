@@ -1,0 +1,22 @@
+/* Custom Styles for the Study Hub */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Flashcard 3D effect */
+.perspective-1000 {
+    perspective: 1000px;
+}
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+.backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+#flashcard.is-flipped {
+    transform: rotateY(180deg);
+}
