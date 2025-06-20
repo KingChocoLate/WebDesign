@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 font-sans">
-    <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -20,7 +19,6 @@
                         <span class="text-xl font-bold text-gray-800">Study Hub</span>
                     </a>
                 </div>
-                <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="index.html" class="bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
@@ -30,7 +28,6 @@
                         <a href="community.html" class="text-gray-500 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Community</a>
                     </div>
                 </div>
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
                         <i class="fas fa-bars text-2xl"></i>
@@ -38,7 +35,6 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="bg-indigo-600 text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
@@ -50,7 +46,6 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-8 text-center">
@@ -68,8 +63,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Quick Access Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 <a href="notes.html" class="bg-white rounded-lg shadow-lg p-6 flex items-center space-x-4 hover:shadow-xl transition-shadow transform hover:-translate-y-1">
                     <i class="fas fa-sticky-note text-3xl text-yellow-500"></i>
                     <div>
@@ -92,17 +86,41 @@
                     </div>
                 </a>
             </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Study Tip of the Day</h2>
+                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md">
+                        <p class="font-bold">The Feynman Technique</p>
+                        <p>Try to explain a concept in simple terms, as if you were teaching it to someone else. This will quickly reveal any gaps in your understanding.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Community Activity</h2>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p><span class="font-semibold text-indigo-600">StudentA</span> asked: "Has anyone found good resources for learning advanced calculus?"</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p><span class="font-semibold text-indigo-600">StudentB</span> shared: "Just finished my mockups for the web design project!"</p>
+                        </div>
+                        <a href="community.html" class="text-sm text-indigo-500 hover:underline">See more...</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white mt-12">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p>&copy; 2024 Online Study Hub. A project by a dedicated student.</p>
+            <p>&copy; 2025 Online Study Hub</p>
+            <p>Institute of Technology of Cambodia</p>
+            <p>GIC Department</p>
         </div>
     </footer>
 
-    <script src="main.js"></script>
-    <script src="home.js"></script>
+    <script src="javascript/main.js"></script>
+    <script src="javascript/home.js"></script>
 </body>
 </html>
