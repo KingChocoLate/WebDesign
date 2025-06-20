@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayPosts() {
-        discussionFeed.innerHTML = '';
+        // discussionFeed.innerHTML = '';
          if (posts.length === 0) {
              // The example post is in the HTML, so we don't need a message here.
              // You can add one if you remove the static example.

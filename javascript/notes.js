@@ -1,6 +1,6 @@
 /**
  * JavaScript for Notes Page
- * - Add, save, and delete notes.
+ * - Add, save, edit, and delete notes.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const addNoteBtn = document.getElementById('add-note-btn');
@@ -11,25 +11,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteTitleInput = document.getElementById('note-title');
     const noteContentInput = document.getElementById('note-content');
 
-    // --- Load notes from localStorage ---
+    // --- Data Management ---
     let notes = JSON.parse(localStorage.getItem('studyhub-notes')) || [];
+    let currentlyEditingIndex = null; // null for new note, index for editing
 
+    function saveNotes() {
+        localStorage.setItem('studyhub-notes', JSON.stringify(notes));
+    }
+
+    // --- UI Functions ---
     function displayNotes() {
         notesContainer.innerHTML = '';
         if (notes.length === 0) {
-             notesContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">No notes yet. Add one!</p>`;
+             notesContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">No notes yet. Add one to get started!</p>`;
              return;
         }
         
         notes.forEach((note, index) => {
             const noteEl = document.createElement('div');
-            noteEl.className = 'bg-yellow-200 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-transform';
+            // Added 'note-card' class and data-index for click handling
+            noteEl.className = 'note-card bg-yellow-200 rounded-lg shadow-md p-5 flex flex-col h-64 justify-between transform hover:scale-105 transition-transform cursor-pointer';
+            noteEl.dataset.index = index;
+            
+            const sanitizedContent = note.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const sanitizedTitle = note.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
             noteEl.innerHTML = `
-                <div>
-                    <h3 class="font-bold text-lg mb-2 text-gray-800">${note.title}</h3>
-                    <p class="text-gray-700 text-sm">${note.content}</p>
+                <div class="flex-grow overflow-hidden">
+                    <h3 class="font-bold text-lg mb-2 text-gray-800 truncate">${sanitizedTitle}</h3>
+                    <p class="text-gray-700 text-sm note-content-preview">${sanitizedContent}</p>
                 </div>
-                <div class="text-right mt-4">
+                <div class="text-right mt-4 flex-shrink-0">
                      <button class="text-gray-500 hover:text-red-500 delete-note-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
                 </div>
             `;
@@ -37,46 +49,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function saveNotes() {
-        localStorage.setItem('studyhub-notes', JSON.stringify(notes));
-    }
-    
-    function showModal() {
-        noteTitleInput.value = '';
+    function openModalForNew() {
+        currentlyEditingIndex = null;
+        noteTitleInput.value = 'Untitled';
         noteContentInput.value = '';
         noteModal.classList.remove('hidden');
+        noteTitleInput.focus();
+        noteTitleInput.select();
     }
     
-    function hideModal() {
-         noteModal.classList.add('hidden');
+    function openModalForEdit(index) {
+        currentlyEditingIndex = index;
+        const note = notes[index];
+        noteTitleInput.value = note.title;
+        noteContentInput.value = note.content;
+        noteModal.classList.remove('hidden');
+        noteTitleInput.focus();
     }
 
-    addNoteBtn.addEventListener('click', showModal);
+    function hideModal() {
+         noteModal.classList.add('hidden');
+         currentlyEditingIndex = null; // Reset editing state
+    }
+
+    // --- Event Listeners ---
+    addNoteBtn.addEventListener('click', openModalForNew);
     closeModalBtn.addEventListener('click', hideModal);
     
     saveNoteBtn.addEventListener('click', () => {
-        const title = noteTitleInput.value.trim();
+        const title = noteTitleInput.value.trim() || 'Untitled';
         const content = noteContentInput.value.trim();
         
-        if(title && content) {
-            notes.push({ title, content });
-            saveNotes();
-            displayNotes();
-            hideModal();
-        } else {
-            alert("Please fill in both title and content.");
+        if (!content) {
+            alert("Please write some content for your note.");
+            return;
         }
+
+        const newNote = { title, content };
+
+        if (currentlyEditingIndex !== null) {
+            // Editing existing note
+            notes[currentlyEditingIndex] = newNote;
+        } else {
+            // Creating new note
+            notes.push(newNote);
+        }
+        
+        saveNotes();
+        displayNotes();
+        hideModal();
     });
 
     notesContainer.addEventListener('click', (e) => {
-        if (e.target.closest('.delete-note-btn')) {
-            const button = e.target.closest('.delete-note-btn');
-            const index = button.dataset.index;
-            notes.splice(index, 1);
-            saveNotes();
-            displayNotes();
+        const deleteBtn = e.target.closest('.delete-note-btn');
+        const card = e.target.closest('.note-card');
+
+        if (deleteBtn) {
+            const index = deleteBtn.dataset.index;
+            if (confirm(`Are you sure you want to delete the note "${notes[index].title}"?`)) {
+                notes.splice(index, 1);
+                saveNotes();
+                displayNotes();
+            }
+        } else if (card) {
+            // If a card was clicked (but not the delete button)
+            const index = card.dataset.index;
+            openModalForEdit(index);
         }
     });
 
+    // --- Initial Load ---
     displayNotes();
 });

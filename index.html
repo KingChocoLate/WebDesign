@@ -51,11 +51,27 @@
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Welcome to Your Study Hub</h1>
                 <p class="text-lg text-gray-600 mb-8">Your all-in-one place to study effectively and collaborate with peers.</p>
-                <div id="pomodoro-timer" class="max-w-md mx-auto bg-gray-50 p-6 rounded-2xl shadow-inner">
-                    <div id="timer-display" class="text-7xl font-bold text-indigo-600 mb-4">25:00</div>
-                    <div class="flex justify-center space-x-4">
-                        <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Start Focus</button>
-                        <button id="reset-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Reset</button>
+                <div id="pomodoro-timer" class="max-w-xl mx-auto bg-gray-50 p-6 rounded-2xl shadow-inner">
+                    
+                    <div class="flex items-center justify-center space-x-2" id="timer-inputs">
+                        <div class="flex items-center space-x-3">
+                            <button id="decrease-min-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold h-10 w-10 rounded-full shadow-sm transition-transform transform hover:scale-105">-</button>
+                            <span id="minutes-display" class="text-7xl font-bold text-indigo-600 w-28 text-center cursor-pointer">25</span>
+                            <button id="increase-min-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold h-10 w-10 rounded-full shadow-sm transition-transform transform hover:scale-105">+</button>
+                        </div>
+                        
+                        <span class="text-7xl font-bold text-indigo-600 pb-2">:</span>
+
+                        <div class="flex items-center space-x-3">
+                            <button id="decrease-sec-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold h-10 w-10 rounded-full shadow-sm transition-transform transform hover:scale-105">-</button>
+                            <span id="seconds-display" class="text-7xl font-bold text-indigo-600 w-28 text-center cursor-pointer">00</span>
+                            <button id="increase-sec-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold h-10 w-10 rounded-full shadow-sm transition-transform transform hover:scale-105">+</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-transform transform hover:scale-105">Start Focus</button>
+                        <button id="reset-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-8 rounded-lg shadow-md transition-transform transform hover:scale-105">Reset</button>
                     </div>
                      <div class="mt-4 text-sm text-gray-500">
                         <p id="timer-mode">Time to focus!</p>
@@ -112,8 +128,8 @@
         </div>
     </main>
 
-    <footer class="bg-white mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+    <footer>
+        <div class="py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
             <p>&copy; 2025 Online Study Hub</p>
             <p>Institute of Technology of Cambodia</p>
             <p>GIC Department</p>

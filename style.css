@@ -1,6 +1,9 @@
 /* Custom Styles for the Study Hub */
 body {
     font-family: 'Inter', sans-serif;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 100px;
 }
 
 /* Flashcard 3D effect */
@@ -19,4 +22,23 @@ body {
 }
 #flashcard.is-flipped {
     transform: rotateY(180deg);
+}
+
+/* New style for note content preview */
+.note-content-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 8; /* Adjust this value to show more or fewer lines */
+    line-clamp: 8; /* Standard property for compatibility */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word; /* Helps with long words */
+    white-space: pre-wrap; /* Respects line breaks in the textarea */
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

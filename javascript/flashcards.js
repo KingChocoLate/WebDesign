@@ -1,14 +1,18 @@
 /**
  * JavaScript for Flashcards Page
- * - Create, manage, and view flashcard decks.
+ * - Dynamic form for creating decks with multiple cards.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Deck Management ---
+    // --- Deck Management Elements ---
     const deckNameInput = document.getElementById('deck-name-input');
     const createDeckBtn = document.getElementById('create-deck-btn');
     const deckContainer = document.getElementById('deck-container');
 
-    // --- Flashcard Viewer ---
+    // --- Dynamic Card Form Elements ---
+    const newCardsContainer = document.getElementById('new-cards-container');
+    const addCardBtn = document.getElementById('add-card-btn');
+
+    // --- Flashcard Viewer Elements ---
     const flashcardViewer = document.getElementById('flashcard-viewer');
     const closeViewerBtn = document.getElementById('close-viewer-btn');
     const flashcard = document.getElementById('flashcard');
@@ -24,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             cards: [
                 { q: 'What does HTML stand for?', a: 'HyperText Markup Language' },
                 { q: 'What does CSS stand for?', a: 'Cascading Style Sheets' },
-                { q: 'What is a "div" in HTML?', a: 'A generic container for flow content.' },
-                { q: 'What is the purpose of "git clone"?', a: 'To create a local copy of a remote repository.' },
             ]
         },
         { name: 'Advanced Calculus', cards: [{q: 'What is a derivative?', a:'The rate of change of a function.'}] }
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDeckIndex = -1;
     let currentCardIndex = 0;
 
-    // --- Deck Functions ---
+    // --- Deck Display Functions ---
     function saveDecks() {
         localStorage.setItem('studyhub-decks', JSON.stringify(decks));
     }
@@ -45,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             deckContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">No decks yet. Create one to get started!</p>`;
             return;
         }
-
         decks.forEach((deck, index) => {
             const deckEl = document.createElement('div');
             deckEl.className = 'bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow transform hover:-translate-y-1 cursor-pointer deck';
@@ -62,22 +63,84 @@ document.addEventListener('DOMContentLoaded', () => {
             deckContainer.appendChild(deckEl);
         });
     }
-    
-    createDeckBtn.addEventListener('click', () => {
-        const deckName = deckNameInput.value.trim();
-        if (deckName) {
-            decks.push({ name: deckName, cards: [] });
-            saveDecks();
-            displayDecks();
-            deckNameInput.value = '';
-            // For now, prompt user to add cards manually or pre-fill.
-            // A more advanced version would have a card editor.
-            alert(`Deck "${deckName}" created! For this example, cards need to be added programmatically.`);
-        } else {
-            alert('Please enter a name for the deck.');
+
+    // --- NEW: Dynamic Form Logic ---
+    function createCardInputGroup() {
+        const cardGroup = document.createElement('div');
+        cardGroup.className = 'card-input-group grid grid-cols-1 md:grid-cols-2 gap-4 items-center';
+        cardGroup.innerHTML = `
+            <input type="text" class="card-term p-3 border-2 border-gray-200 rounded-lg" placeholder="Term (Question)">
+            <div class="flex items-center gap-2">
+                <input type="text" class="card-definition flex-grow p-3 border-2 border-gray-200 rounded-lg" placeholder="Definition (Answer)">
+                <button class="delete-card-btn bg-red-500 hover:bg-red-600 text-white font-bold h-10 w-10 rounded-full flex-shrink-0 flex items-center justify-center">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        return cardGroup;
+    }
+
+    addCardBtn.addEventListener('click', () => {
+        newCardsContainer.appendChild(createCardInputGroup());
+    });
+
+    newCardsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.delete-card-btn')) {
+            e.target.closest('.card-input-group').remove();
         }
     });
 
+    createDeckBtn.addEventListener('click', () => {
+        const deckName = deckNameInput.value.trim();
+        if (!deckName) {
+            alert('Please enter a title for the deck.');
+            return;
+        }
+
+        const cardNodes = newCardsContainer.querySelectorAll('.card-input-group');
+        const newCards = [];
+        let allFieldsFilled = true;
+
+        cardNodes.forEach(node => {
+            const term = node.querySelector('.card-term').value.trim();
+            const definition = node.querySelector('.card-definition').value.trim();
+
+            if (!term || !definition) {
+                allFieldsFilled = false;
+            }
+            newCards.push({ q: term, a: definition });
+        });
+
+        if (!allFieldsFilled) {
+            alert('Please make sure all card terms and definitions are filled out before creating the deck.');
+            return;
+        }
+
+        if (newCards.length === 0) {
+            alert('Please add at least one card to the deck.');
+            return;
+        }
+
+        decks.push({ name: deckName, cards: newCards });
+        saveDecks();
+        displayDecks();
+        resetCreationForm();
+        alert(`Deck "${deckName}" created successfully!`);
+    });
+    
+    function resetCreationForm() {
+        deckNameInput.value = '';
+        newCardsContainer.innerHTML = ''; // Clear all card inputs
+        // Add the first card back
+        newCardsContainer.innerHTML = `
+            <div class="card-input-group grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" class="card-term p-3 border-2 border-gray-200 rounded-lg" placeholder="Term (Question)">
+                <input type="text" class="card-definition p-3 border-2 border-gray-200 rounded-lg" placeholder="Definition (Answer)">
+            </div>
+        `;
+    }
+
+    // --- Deck Interaction and Viewer Logic (remains mostly the same) ---
     deckContainer.addEventListener('click', (e) => {
         const target = e.target;
         if (target.closest('.delete-deck-btn')) {
@@ -93,16 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Flashcard Viewer Functions ---
     function openDeck(index) {
         currentDeckIndex = index;
         currentCardIndex = 0;
-        
         if (decks[currentDeckIndex].cards.length === 0) {
-            alert("This deck is empty! A real app would let you add cards here.");
+            alert("This deck is empty!");
             return;
         }
-        
         showCard(currentCardIndex);
         flashcardViewer.classList.remove('hidden');
     }
@@ -116,31 +176,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (flashcard.classList.contains('is-flipped')) {
             flashcard.classList.remove('is-flipped');
         }
-        
         const deck = decks[currentDeckIndex];
-        // A short delay to allow the card to flip back before changing content
         setTimeout(() => {
             cardFront.textContent = deck.cards[index].q;
             cardBack.textContent = deck.cards[index].a;
         }, 200);
     }
     
-    flashcard.addEventListener('click', () => {
-        flashcard.classList.toggle('is-flipped');
-    });
-
+    flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
     prevBtn.addEventListener('click', () => {
         const deck = decks[currentDeckIndex];
         currentCardIndex = (currentCardIndex - 1 + deck.cards.length) % deck.cards.length;
         showCard(currentCardIndex);
     });
-
     nextBtn.addEventListener('click', () => {
         const deck = decks[currentDeckIndex];
         currentCardIndex = (currentCardIndex + 1) % deck.cards.length;
         showCard(currentCardIndex);
     });
-    
     closeViewerBtn.addEventListener('click', closeDeck);
 
     // --- Initial Load ---

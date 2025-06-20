@@ -49,38 +49,42 @@
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
              <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-6">Weekly Planner</h1>
-                <div class="flex flex-col sm:flex-row items-center mb-6">
-                     <input type="text" id="task-input" placeholder="Add a new task..." class="w-full sm:flex-grow p-3 border-2 border-gray-200 rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:border-indigo-500 transition-colors mb-2 sm:mb-0">
-                     <button id="add-task-btn" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-3 rounded-lg sm:rounded-r-lg sm:rounded-l-none"><i class="fas fa-plus mr-2"></i>Add Task</button>
-                 </div>
-                 
-                 <div id="task-list" class="space-y-4">
-                     <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
-                         <div class="flex items-center">
-                            <input type="checkbox" class="h-5 w-5 text-indigo-600 rounded-sm border-gray-300 focus:ring-indigo-500">
-                            <span class="ml-4 text-gray-700 break-all">Finish web design project mockups</span>
-                         </div>
-                         <button class="text-gray-400 hover:text-red-500 transition-colors ml-2"><i class="fas fa-trash-alt"></i></button>
-                     </div>
-                      <div class="flex items-center justify-between bg-green-100 p-4 rounded-lg shadow-sm">
-                         <div class="flex items-center">
-                            <input type="checkbox" class="h-5 w-5 text-indigo-600 rounded-sm border-gray-300 focus:ring-indigo-500" checked>
-                            <span class="ml-4 text-gray-700 line-through">Read Chapter 3 of Chemistry textbook</span>
-                         </div>
-                         <button class="text-gray-400 hover:text-red-500 transition-colors ml-2"><i class="fas fa-trash-alt"></i></button>
-                     </div>
-                      <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
-                         <div class="flex items-center">
-                            <input type="checkbox" class="h-5 w-5 text-indigo-600 rounded-sm border-gray-300 focus:ring-indigo-500">
-                            <span class="ml-4 text-gray-700 break-all">Complete 10 practice problems for Calculus</span>
-                         </div>
-                         <button class="text-gray-400 hover:text-red-500 transition-colors ml-2"><i class="fas fa-trash-alt"></i></button>
-                     </div>
-                     </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-6">Planner</h1>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <div class="lg:col-span-3">
+                        <div class="flex items-center justify-between mb-4">
+                            <button id="prev-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-left"></i></button>
+                            <h2 id="month-year-header" class="text-xl font-bold"></h2>
+                            <button id="next-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center">
+                            </div>
+                    </div>
+
+                    <div class="lg:col-span-2">
+                        <h2 id="tasks-date-header" class="text-xl font-semibold mb-4 text-gray-700">Tasks for Today</h2>
+                        <div class="flex flex-col sm:flex-row items-center mb-6">
+                            <input type="text" id="task-input" placeholder="Add a new task..." class="w-full sm:flex-grow p-3 border-2 border-gray-200 rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:border-indigo-500 transition-colors mb-2 sm:mb-0">
+                            <button id="add-task-btn" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-3 rounded-lg sm:rounded-r-lg sm:rounded-l-none"><i class="fas fa-plus mr-2"></i>Add</button>
+                        </div>
+                        
+                        <div id="task-list" class="space-y-4">
+                            </div>
+                    </div>
+                </div>
              </div>
         </div>
     </main>
+
+     <footer>
+        <div class="py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2025 Online Study Hub</p>
+            <p>Institute of Technology of Cambodia</p>
+            <p>GIC Department</p>
+        </div>
+    </footer>
+    
     <script src="javascript/main.js"></script>
     <script src="javascript/planner.js"></script>
 </body>
