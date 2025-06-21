@@ -12,11 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteContentInput = document.getElementById('note-content');
 
     // --- Data Management ---
-    let notes = JSON.parse(localStorage.getItem('studyhub-notes')) || [];
+    let notes = [
+        { title: 'Sample Note 1', content: 'This is the first sample note. It demonstrates how a note appears on the page.' },
+        { title: 'Sample Note 2', content: 'This is another example note to show the grid layout of the notes.' }
+    ];
     let currentlyEditingIndex = null; // null for new note, index for editing
 
     function saveNotes() {
-        localStorage.setItem('studyhub-notes', JSON.stringify(notes));
+        // Data is not persisted in this version.
     }
 
     // --- UI Functions ---

@@ -24,6 +24,10 @@ body {
     transform: rotateY(180deg);
 }
 
+#card-back {
+    transform: rotateY(180deg);
+}
+
 /* New style for note content preview */
 .note-content-preview {
     display: -webkit-box;

@@ -93,15 +93,17 @@
                 <!-- The content for the flashcard viewer pop-up -->
                 <div class="max-w-lg w-full">
                     <div id="flashcard-container" class="relative w-full h-64 perspective-1000">
-                        <div id="flashcard" class="w-full h-full relative preserve-3d transition-transform duration-700 cursor-pointer rounded-2xl shadow-2xl">
-                            <div class="absolute w-full h-full backface-hidden bg-white flex items-center justify-center p-8 rounded-2xl">
-                                <p id="card-front" class="text-2xl font-semibold text-gray-800 text-center"></p>
-                            </div>
-                            <div class="absolute w-full h-full backface-hidden bg-indigo-500 flex items-center justify-center p-8 rounded-2xl transform rotate-y-180">
-                                <p id="card-back" class="text-xl text-white text-center"></p>
-                            </div>
-                        </div>
-                    </div>
+      <div id="flashcard" class="w-full h-full relative transition-transform duration-700 preserve-3d cursor-pointer rounded-2xl shadow-2xl">
+        <!-- Front -->
+        <div id="card-front" class="absolute w-full h-full backface-hidden bg-white flex items-center justify-center p-8 rounded-2xl">
+          <p class="text-2xl font-semibold text-gray-800 text-center">What does HTML stand for?</p>
+        </div>
+        <!-- Back -->
+        <div id="card-back" class="absolute w-full h-full backface-hidden bg-indigo-500 flex items-center justify-center p-8 rounded-2xl">
+          <p class="text-xl text-white text-center">HyperText Markup Language</p>
+        </div>
+      </div>
+    </div>
                     <div class="mt-8 flex justify-center space-x-4">
                         <button id="prev-card" class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
                             <i class="fas fa-arrow-left"></i>

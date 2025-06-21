@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('next-card');
 
     // --- Data ---
-    let decks = JSON.parse(localStorage.getItem('studyhub-decks')) || [
+    let decks = [
         { 
             name: 'Web Development Basics', 
             cards: [
@@ -173,14 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showCard(index) {
+        // This ensures the card is always reset to the front-facing state
         if (flashcard.classList.contains('is-flipped')) {
             flashcard.classList.remove('is-flipped');
         }
         const deck = decks[currentDeckIndex];
-        setTimeout(() => {
-            cardFront.textContent = deck.cards[index].q;
-            cardBack.textContent = deck.cards[index].a;
-        }, 200);
+
+        // By removing the delay, we ensure the text loads instantly and correctly.
+        cardFront.textContent = deck.cards[index].q;
+        cardBack.textContent = deck.cards[index].a;
     }
     
     flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));

@@ -13,11 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextMonthBtn = document.getElementById('next-month-btn');
     const tasksDateHeader = document.getElementById('tasks-date-header');
 
-    // --- State ---
-    let tasks = JSON.parse(localStorage.getItem('studyhub-tasks-calendar')) || {};
-    let currentDate = new Date();
-    let selectedDate = new Date();
-
     // --- Utility Functions ---
     const toISODateString = (date) => {
         const year = date.getFullYear();
@@ -26,9 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${year}-${month}-${day}`;
     };
 
+    // --- State ---
+    // Tasks are now hardcoded instead of using localStorage
+    let tasks = {
+        [toISODateString(new Date())]: [
+            { text: 'Submit the project report', completed: false },
+            { text: 'Study for the upcoming exam', completed: true }
+        ]
+    };
+    let currentDate = new Date();
+    let selectedDate = new Date();
+
     // --- Data Functions ---
     function saveTasks() {
-        localStorage.setItem('studyhub-tasks-calendar', JSON.stringify(tasks));
+        // Data is not persisted in this version.
     }
 
     // --- Core Functions ---
@@ -139,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     calendarGrid.addEventListener('click', (e) => {
         if (e.target.dataset.date) {
+            // CORRECTED: Removed the extra 'new' keyword
             selectedDate = new Date(e.target.dataset.date + 'T00:00:00'); // Set time to midnight
             renderCalendar();
         }
