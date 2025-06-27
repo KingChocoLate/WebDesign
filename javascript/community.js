@@ -1,59 +1,77 @@
 /**
  * JavaScript for Community Page
- * - Submit and display posts.
+ * - Submit and display posts from a hardcoded array.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const postContentInput = document.getElementById('post-content');
     const submitPostBtn = document.getElementById('submit-post-btn');
     const discussionFeed = document.getElementById('discussion-feed');
     
-    // --- Load posts from localStorage ---
-    let posts = JSON.parse(localStorage.getItem('studyhub-posts')) || [];
-
-    function savePosts() {
-        localStorage.setItem('studyhub-posts', JSON.stringify(posts));
-    }
+    // Hardcoded array of posts, taken from the original HTML examples
+    let posts = [
+        {
+            username: 'StudentA',
+            timestamp: '2 hours ago',
+            avatar: 'https://placehold.co/100x100/E2E8F0/4A5568?text=User',
+            content: "Has anyone found good resources for learning advanced calculus? I'm struggling with series and sequences."
+        },
+        {
+            username: 'StudentC',
+            timestamp: '5 hours ago',
+            avatar: 'https://placehold.co/100x100/A0AEC0/4A5568?text=User',
+            content: "I found Khan Academy to be super helpful for calculus. Their videos on Taylor series are top-notch!"
+        },
+        {
+            username: 'StudentB',
+            timestamp: '1 day ago',
+            avatar: 'https://placehold.co/100x100/CBD5E0/4A5568?text=User',
+            content: "Just deployed my first personal website project! It's a simple portfolio, but I'm proud of it. Built with HTML, CSS, and a little bit of JavaScript."
+        }
+    ];
 
     function displayPosts() {
-        // discussionFeed.innerHTML = '';
-         if (posts.length === 0) {
-             // The example post is in the HTML, so we don't need a message here.
-             // You can add one if you remove the static example.
-             return;
-        }
+        // Clear the feed before re-rendering
+        discussionFeed.innerHTML = '';
         
         posts.forEach(post => {
             const postEl = document.createElement('div');
             postEl.className = 'bg-gray-50 p-5 rounded-lg shadow-sm';
+            
+            // Sanitize content to prevent HTML injection
+            const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
             postEl.innerHTML = `
                 <div class="flex items-start space-x-4">
-                    <img class="w-12 h-12 rounded-full" src="https://placehold.co/100x100/E2E8F0/4A5568?text=You" alt="User avatar">
+                    <img class="w-12 h-12 rounded-full" src="${post.avatar}" alt="User avatar">
                     <div class="flex-1">
-                        <p class="font-semibold text-gray-800">You</p>
-                        <p class="text-sm text-gray-500">${new Date(post.timestamp).toLocaleString()}</p>
-                        <p class="mt-2 text-gray-700">${post.content}</p>
+                        <p class="font-semibold text-gray-800">${post.username}</p>
+                        <p class="text-sm text-gray-500">${post.timestamp}</p>
+                        <p class="mt-2 text-gray-700 break-words">${sanitizedContent}</p>
                     </div>
                 </div>
             `;
-            // insert at top
-            discussionFeed.prepend(postEl);
+            discussionFeed.appendChild(postEl);
         });
     }
 
     submitPostBtn.addEventListener('click', () => {
         const content = postContentInput.value.trim();
         if (content) {
-            posts.push({
-                content: content,
-                timestamp: new Date().toISOString()
-            });
+            const newPost = {
+                username: 'You',
+                timestamp: 'Just now',
+                avatar: 'https://placehold.co/100x100/93c5fd/1e3a8a?text=You', // A different avatar for the user
+                content: content
+            };
+            
+            // Add the new post to the beginning of the array
+            posts.unshift(newPost);
+            
             postContentInput.value = '';
-            savePosts();
-            displayPosts();
+            displayPosts(); // Re-render the entire feed
         }
     });
 
-    // Initial display - this will show saved posts along with the static one
+    // Initial display of hardcoded posts
     displayPosts();
-
 });
