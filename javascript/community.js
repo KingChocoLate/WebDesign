@@ -1,13 +1,8 @@
-/**
- * JavaScript for Community Page
- * - Submit and display posts from a hardcoded array.
- */
 document.addEventListener('DOMContentLoaded', () => {
     const postContentInput = document.getElementById('post-content');
     const submitPostBtn = document.getElementById('submit-post-btn');
     const discussionFeed = document.getElementById('discussion-feed');
     
-    // Hardcoded array of posts, taken from the original HTML examples
     let posts = [
         {
             username: 'StudentA',
@@ -30,16 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function displayPosts() {
-        // Clear the feed before re-rendering
-        discussionFeed.innerHTML = '';
+        discussionFeed.innerHTML = ''; // Clear feed before re-rendering
         
         posts.forEach(post => {
             const postEl = document.createElement('div');
             postEl.className = 'bg-gray-50 p-5 rounded-lg shadow-sm';
             
-            // Sanitize content to prevent HTML injection
-            const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
+            const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Sanitize content
             postEl.innerHTML = `
                 <div class="flex items-start space-x-4">
                     <img class="w-12 h-12 rounded-full" src="${post.avatar}" alt="User avatar">
@@ -60,18 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const newPost = {
                 username: 'You',
                 timestamp: 'Just now',
-                avatar: 'https://placehold.co/100x100/93c5fd/1e3a8a?text=You', // A different avatar for the user
+                avatar: 'https://placehold.co/100x100/93c5fd/1e3a8a?text=You', // User avatar
                 content: content
             };
             
-            // Add the new post to the beginning of the array
-            posts.unshift(newPost);
-            
+            posts.unshift(newPost); // Add new post to top
             postContentInput.value = '';
-            displayPosts(); // Re-render the entire feed
+            displayPosts(); // Re-render feed
         }
     });
 
-    // Initial display of hardcoded posts
-    displayPosts();
+    displayPosts(); // Initial display of posts
 });

@@ -1,18 +1,14 @@
-/**
- * JavaScript for Flashcards Page
- * - Dynamic form for creating decks with multiple cards.
- */
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Deck Management Elements ---
+    // Deck Management Elements
     const deckNameInput = document.getElementById('deck-name-input');
     const createDeckBtn = document.getElementById('create-deck-btn');
     const deckContainer = document.getElementById('deck-container');
 
-    // --- Dynamic Card Form Elements ---
+    // Dynamic Card Form Elements
     const newCardsContainer = document.getElementById('new-cards-container');
     const addCardBtn = document.getElementById('add-card-btn');
 
-    // --- Flashcard Viewer Elements ---
+    // Flashcard Viewer Elements
     const flashcardViewer = document.getElementById('flashcard-viewer');
     const closeViewerBtn = document.getElementById('close-viewer-btn');
     const flashcard = document.getElementById('flashcard');
@@ -21,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prev-card');
     const nextBtn = document.getElementById('next-card');
 
-    // --- Data ---
+    // Data
     let decks = [
         { 
             name: 'Web Development Basics', 
@@ -36,11 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDeckIndex = -1;
     let currentCardIndex = 0;
 
-    // --- Deck Display Functions ---
-    function saveDecks() {
-        localStorage.setItem('studyhub-decks', JSON.stringify(decks));
-    }
-
+    // Deck Display Functions
     function displayDecks() {
         deckContainer.innerHTML = '';
         if (decks.length === 0) {
@@ -64,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- NEW: Dynamic Form Logic ---
+    // Dynamic Card Form Logic
     function createCardInputGroup() {
         const cardGroup = document.createElement('div');
         cardGroup.className = 'card-input-group grid grid-cols-1 md:grid-cols-2 gap-4 items-center';
@@ -122,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         decks.push({ name: deckName, cards: newCards });
-        saveDecks();
         displayDecks();
         resetCreationForm();
         alert(`Deck "${deckName}" created successfully!`);
@@ -140,14 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // --- Deck Interaction and Viewer Logic (remains mostly the same) ---
+    // Deck Interaction and Viewer Logic
     deckContainer.addEventListener('click', (e) => {
         const target = e.target;
         if (target.closest('.delete-deck-btn')) {
              const index = target.closest('.delete-deck-btn').dataset.index;
              if(confirm(`Are you sure you want to delete the deck "${decks[index].name}"?`)){
                 decks.splice(index, 1);
-                saveDecks();
                 displayDecks();
              }
         } else if (target.closest('.deck')) {
@@ -197,6 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     closeViewerBtn.addEventListener('click', closeDeck);
 
-    // --- Initial Load ---
+    // Initial Load
     displayDecks();
 });

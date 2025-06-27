@@ -28,16 +28,16 @@ body {
     transform: rotateY(180deg);
 }
 
-/* New style for note content preview */
+/* Note content preview in notes cards */
 .note-content-preview {
     display: -webkit-box;
-    -webkit-line-clamp: 8; /* Adjust this value to show more or fewer lines */
-    line-clamp: 8; /* Standard property for compatibility */
+    -webkit-line-clamp: 8;
+    line-clamp: 8;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-word; /* Helps with long words */
-    white-space: pre-wrap; /* Respects line breaks in the textarea */
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 footer {

@@ -1,18 +1,10 @@
-/**
- * JavaScript for Home Page
- * - Pomodoro Timer functionality
- */
 document.addEventListener('DOMContentLoaded', () => {
-    // Timer Display Elements
+    // Timer DOM Elements
     const minutesDisplay = document.getElementById('minutes-display');
     const secondsDisplay = document.getElementById('seconds-display');
-    
-    // Control Buttons
     const startBtn = document.getElementById('start-btn');
     const resetBtn = document.getElementById('reset-btn');
     const timerModeDisplay = document.getElementById('timer-mode');
-    
-    // Time Adjustment Buttons
     const increaseMinBtn = document.getElementById('increase-min-btn');
     const decreaseMinBtn = document.getElementById('decrease-min-btn');
     const increaseSecBtn = document.getElementById('increase-sec-btn');
@@ -23,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let seconds = 1500; // 25 minutes
     let isBreak = false;
 
-    // Helper function to show/hide adjustment buttons
     function showAdjustmentButtons(show) {
         if (show) {
             increaseMinBtn.classList.remove('hidden');
@@ -50,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         isRunning = true;
         startBtn.textContent = 'Pause';
-        showAdjustmentButtons(false); // --- HIDE the buttons when the timer starts
+        showAdjustmentButtons(false); // Hide adjustment buttons when timer starts
 
         timer = setInterval(() => {
             seconds--;
@@ -60,18 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 isRunning = false;
                 
                 if (isBreak) {
-                    seconds = 1500; 
+                    seconds = 1500; // Reset to 25 mins focus
                     timerModeDisplay.textContent = 'Time to focus!';
                     startBtn.textContent = 'Start Focus';
                 } else {
-                    seconds = 300; 
+                    seconds = 300; // Set to 5 mins break
                     timerModeDisplay.textContent = 'Time for a break!';
                     startBtn.textContent = 'Start Break';
                 }
                 isBreak = !isBreak;
                 updateDisplay();
-                // We don't show buttons here, user must reset to edit
-                alert(timerModeDisplay.textContent);
+                alert(timerModeDisplay.textContent); // Notify user of mode change
             }
         }, 1000);
     }
@@ -80,19 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
         isRunning = false;
         clearInterval(timer);
         startBtn.textContent = 'Resume';
-        // Buttons remain hidden during pause
     }
-
 
     function resetTimer() {
         clearInterval(timer);
         isRunning = false;
         isBreak = false;
-        seconds = 1500;
+        seconds = 1500; // Reset to 25 minutes
         updateDisplay();
         startBtn.textContent = 'Start Focus';
         timerModeDisplay.textContent = 'Time to focus!';
-        showAdjustmentButtons(true); // --- SHOW the buttons when reset
+        showAdjustmentButtons(true); // Show adjustment buttons on reset
     }
     
     startBtn.addEventListener('click', () => {
@@ -104,11 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     resetBtn.addEventListener('click', resetTimer);
 
-    // --- Functionality for Editing Time ---
-
+    // Time Adjustment Functionality
     increaseMinBtn.addEventListener('click', () => {
         if (isRunning) return;
-        if (seconds < 3540) {
+        if (seconds < 3540) { // Max 59 minutes
             seconds += 60;
             updateDisplay();
         }
@@ -116,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     decreaseMinBtn.addEventListener('click', () => {
         if (isRunning) return;
-        if (seconds >= 60) {
+        if (seconds >= 60) { // Min 1 minute
             seconds -= 60;
             updateDisplay();
         }
@@ -124,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     increaseSecBtn.addEventListener('click', () => {
         if (isRunning) return;
-        if (seconds < 3599) {
+        if (seconds < 3599) { // Max 59:59
             seconds += 1;
             updateDisplay();
         }
@@ -132,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     decreaseSecBtn.addEventListener('click', () => {
         if (isRunning) return;
-        if (seconds > 0) {
+        if (seconds > 0) { // Min 0:00
             seconds -= 1;
             updateDisplay();
         }
@@ -172,6 +159,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    updateDisplay(); // Initial display
+    updateDisplay(); // Initial display on load
 });

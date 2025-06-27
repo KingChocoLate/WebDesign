@@ -1,7 +1,3 @@
-/**
- * JavaScript for Notes Page
- * - Add, save, edit, and delete notes.
- */
 document.addEventListener('DOMContentLoaded', () => {
     const addNoteBtn = document.getElementById('add-note-btn');
     const noteModal = document.getElementById('note-modal');
@@ -11,18 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteTitleInput = document.getElementById('note-title');
     const noteContentInput = document.getElementById('note-content');
 
-    // --- Data Management ---
+    // Data Management
     let notes = [
         { title: 'Sample Note 1', content: 'This is the first sample note. It demonstrates how a note appears on the page.' },
         { title: 'Sample Note 2', content: 'This is another example note to show the grid layout of the notes.' }
     ];
     let currentlyEditingIndex = null; // null for new note, index for editing
 
-    function saveNotes() {
-        // Data is not persisted in this version.
-    }
-
-    // --- UI Functions ---
+    // UI Functions
     function displayNotes() {
         notesContainer.innerHTML = '';
         if (notes.length === 0) {
@@ -75,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
          currentlyEditingIndex = null; // Reset editing state
     }
 
-    // --- Event Listeners ---
+    // Event Listeners
     addNoteBtn.addEventListener('click', openModalForNew);
     closeModalBtn.addEventListener('click', hideModal);
     
@@ -98,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             notes.push(newNote);
         }
         
-        saveNotes();
         displayNotes();
         hideModal();
     });
@@ -111,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = deleteBtn.dataset.index;
             if (confirm(`Are you sure you want to delete the note "${notes[index].title}"?`)) {
                 notes.splice(index, 1);
-                saveNotes();
                 displayNotes();
             }
         } else if (card) {
@@ -121,6 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Initial Load ---
+    // Initial Load
     displayNotes();
 });
