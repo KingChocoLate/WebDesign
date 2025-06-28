@@ -1,4 +1,3 @@
-/* Custom Styles for the Study Hub */
 body {
     font-family: 'Inter', sans-serif;
     position: relative;
@@ -10,23 +9,25 @@ body {
 .perspective-1000 {
     perspective: 1000px;
 }
-.preserve-3d {
-    transform-style: preserve-3d;
-}
-.rotate-y-180 {
-    transform: rotateY(180deg);
-}
+
 .backface-hidden {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-}
-#flashcard.is-flipped {
-    transform: rotateY(180deg);
 }
 
 #card-back {
     transform: rotateY(180deg);
 }
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+#flashcard.is-flipped {
+    transform: rotateY(180deg);
+}
+
+
 
 /* Note content preview in notes cards */
 .note-content-preview {

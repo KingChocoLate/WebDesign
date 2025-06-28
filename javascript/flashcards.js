@@ -169,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const deck = decks[currentDeckIndex];
 
-        // By removing the delay, we ensure the text loads instantly and correctly.
         cardFront.textContent = deck.cards[index].q;
         cardBack.textContent = deck.cards[index].a;
     }
